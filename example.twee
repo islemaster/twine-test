@@ -12,8 +12,18 @@ My test story!
 :: Start
 This is the first passage in a Twine game!
 
-[[This is a link|Next Passage]]
+> [[This is a link|Next Passage]]
+> [[About]]
 
 
 :: Next Passage
 The player just clicked a link to get here!
+
+:: About
+I was inspired to try making something in Twine after playing
+_[[The Last Night of Alexisgrad|https://ifdb.org/viewgame?id=6l81m82xf294621g]]_
+by Milo van Mesdag, and by the
+_[[Ace of Aces|https://boardgamegeek.com/boardgame/798/ace-aces-handy-rotary-series]]_
+gamebooks.
+
+> {back link}
