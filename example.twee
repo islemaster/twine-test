@@ -10,6 +10,8 @@
 My test story!
 
 :: Start
+config.footer.center: "[[View source|https://github.com/islemaster/twine-test]]"
+--
 This is the first passage in a Twine game!
 
 > [[This is a link|Next Passage]]
