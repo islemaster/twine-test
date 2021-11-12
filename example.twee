@@ -2,7 +2,7 @@
 {
     "ifid": "C13C69A9-3832-4BEF-ABE9-1466E0DB1932",
     "format": "Chapbook",
-    "format-version": "1.0.0",
+    "format-version": "1.2.0",
     "start": "Start"
 }
 
@@ -17,7 +17,7 @@ This is the first passage in a Twine game!
 
 
 :: Next Passage
-The player just clicked a link to get here!
+We're not sure why we need a second passage yet, but we know that'll eventually happen.
 
 :: About
 I was inspired to try making something in Twine after playing
