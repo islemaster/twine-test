@@ -1,0 +1,19 @@
+:: StoryData
+{
+    "ifid": "C13C69A9-3832-4BEF-ABE9-1466E0DB1932",
+    "format": "Chapbook",
+    "format-version": "1.0.0",
+    "start": "Start"
+}
+
+:: StoryTitle
+My test story!
+
+:: Start
+This is the first passage in a Twine game!
+
+[[This is a link|Next Passage]]
+
+
+:: Next Passage
+The player just clicked a link to get here!
