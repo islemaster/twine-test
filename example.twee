@@ -13,11 +13,31 @@ My test story!
 This is the first passage in a Twine game!
 
 > [[This is a link|Next Passage]]
+> [[Increment Demo->Increment Start]]
 > [[About]]
+
+[Note]
+I'm thinking this storyfile is just some experiments.
+
+Criteria I'm thinking of for anything we'd eventually publish:
++1 Novelty within the medium
++1 Interactions are fun and/or consonant with the theme
++1 No distracting bugs
++1 Polished; quality-of-life features (including hints) that enhance the experience
++1 Effective prose
++1 Well-sketched setting
++1 Compelling plot
++1 Memorable character(s)
 
 
 :: Next Passage
-We're not sure why we need a second passage yet, but we know that'll eventually happen.
+We're not sure why we need a second passage yet, but we know that'll [[eventually]] happen.
+
+> [[Back->Start]]
+
+:: eventually
+There's no telling how long.
+> [[Back->Start]]
 
 :: About
 I was inspired to try making something in Twine after playing
@@ -27,3 +47,20 @@ _[[Ace of Aces|https://boardgamegeek.com/boardgame/798/ace-aces-handy-rotary-ser
 gamebooks.
 
 > {back link}
+
+:: Increment Start
+incrementTestVisits: 0
+--
+{embed passage: 'Increment Repeat'}
+[Note]
+I'm using a "start" passage with an embed here so we can reset the increment
+each time you enter the increment demo.
+
+:: Increment Repeat
+incrementTestVisits: incrementTestVisits + 1
+--
+You've visited this passage {incrementTestVisits} times
+
+> [[Add one->Increment Repeat]]
+> [[Go back->Start]]
+
