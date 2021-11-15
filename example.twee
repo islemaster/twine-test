@@ -30,16 +30,22 @@ Criteria I'm thinking of for anything we'd eventually publish:
 +1 Well-sketched setting
 +1 Compelling plot
 +1 Memorable character(s)
-
+Oh is that all? :) -YH
 
 :: Next Passage
 We're not sure why we need a second passage yet, but we know that'll [[eventually]] happen.
 
+> [[Press On->Third Passage]]
 > [[Back->Start]]
 
 :: eventually
 There's no telling how long.
 > [[Back->Start]]
+
+:: Third Passage
+And when that time comes, {reveal link: 'this will be replaced', text: 'something else entirely will be here'}.
+
+> [[Return to Start->Start]]
 
 :: About
 I was inspired to try making something in Twine after playing
