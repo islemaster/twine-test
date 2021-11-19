@@ -9,13 +9,31 @@
 :: StoryTitle
 My test story!
 
+:: Global Story Properties [script]
+// Capture the player properties / decisions and the code that can
+// encode them into a faux-phone-number, and decode them back into
+// the game state on the other player's computer.
+const p1Props = ['role', 'eyes', 'hair']
+engine.state.set('player1', {
+  role: {value: '', options: ['detective', 'tech', 'desk jockey']},
+  eyes: {value: '', options: ['brown', 'hazel', 'blue', 'green', 'piercing']},
+  hair: {value: '', options: ['greying', 'thinning', 'sandy']},
+  serialize: () => ('651-555-2' + p1Props.map(key => player1[key].options.indexOf(player1[key].value)).join('')),
+  deserialize: (code) => (p1Props.forEach((key, i) => (
+    player1[key].value = player1[key].options[parseInt(code.charAt(9 + i))]
+  )))
+})
+
 :: Start
+config.style.page.verticalAlign: 'center'
 config.footer.center: "[[View source|https://github.com/islemaster/twine-test]]"
 --
 This is the first passage in a Twine game!
 
 > [[This is a link|Next Passage]]
 > [[Increment Demo->Increment Start]]
+> [[Story ideas]]
+> [[Code-sending demo]]
 > [[About]]
 
 [Note]
@@ -72,3 +90,140 @@ You've visited this passage {incrementTestVisits} times
 > [[Add one->Increment Repeat]]
 > [[Go back->Start]]
 
+
+:: Story ideas
+
+What are some classic two-protagonist narrative forms?
+
+- Romeo & Juliet: What if one player was all of the Montagues,
+  and the other all of the Capulets?
+- The X-Files: Mulder and Scully doing some independent investigation
+  and some coordination. (Yay monster-of-the-week!)
+- The Odd Couple (and [[associated tropes|https://tvtropes.org/pmwiki/pmwiki.php/Main/OddCouple]])
+- Adam and Eve. Moses and Aaron?
+
+> [[Back->Start]]
+
+:: Code-sending demo
+config.style.page.verticalAlign: 'top'
+p1_role: ''
+--
+
+> [[Player 1->Player 1 intro]]
+> [[Player 2->Player 2 intro]]
+
+[Note]
+#
+# Begin the Player 1 section
+#
+
+:: Player 1 intro
+What a miserable day. The contiuous drizzle has turned the gravel road into a shallow stream,
+which your tires slosh through as [[you approach the scene->Player 1 character creation]].
+
+:: Player 1 character creation
+How'd you end up on this case anyway? Agent Walker,
+
+[unless player1.role.value; append]
+the...
+
+> [[...best detective on the force->Become the detective]]
+> [[...lab tech->Become the tech]]
+> [[...desk jockey->Become the desk jockey]]
+
+[if player1.role.value == 'detective'; append]
+the best detective on the force, reduced to chasing shadows.
+
+[if player1.role.value == 'tech'; append]
+the lab tech, should be cozy surrounded by your instruments while field agents tromp about in
+the mud to bring you samples.
+
+[if player1.role.value == 'desk jockey'; append]
+the desk jockey, out in inclement weather because nobody else wanted this dead-end of a case.
+
+[if player1.role.value]
+Glancing in the rear-view, the lines around your
+{cycling link for: 'p1_eyes', choices: player1.eyes.options}
+eyes and your disheveled
+{cycling link for: 'p1_hair', choices: player1.hair.options}
+hair reveal your {reveal link: 'feelings about this case.', passage: 'Player 1 character creation ending'}
+
+:: Player 1 character creation ending
+player1.hair.value: p1_hair
+player1.eyes.value: p1_eyes
+--
+feelings about this case.
+
+You're not looking forward to [[getting out of the car->Character creation code]].
+
+:: Become the detective
+player1.role.value: 'detective'
+--
+{embed passage: 'Player 1 character creation'}
+
+:: Become the tech
+player1.role.value: 'tech'
+--
+{embed passage: 'Player 1 character creation'}
+
+:: Become the desk jockey
+player1.role.value: 'desk jockey'
+--
+{embed passage: 'Player 1 character creation'}
+
+:: Character creation code
+p1_p2_code1: player1.serialize()
+--
+[JavaScript]
+p1_p2_code1 = player1.serialize()
+[continue]
+You step into the mud and hand your new partner your business card:
+
+[align center]
+~~Agent M. Walker~~
+[if player1.role.value == 'detective' || player1.role.value == 'desk jockey'; align center]
+~~Detective~~
+[if player1.role.value == 'tech'; align center]
+~~Forensics Technician~~
+[continue; align center]
+~~{p1_p2_code1}~~
+
+[continue]
+They return the favor. **What is your partner's phone number?**
+
+{text input for: 'p2_p1_code1'}
+
+[[You pocket the card.]]
+
+[Note]
+#
+# Begin the Player 2 section
+#
+
+:: Player 2 intro
+You step out into the rain as the car pulls up.  The driver steps out and
+looks you in the eye as you exchange business cards.
+
+What is **their phone number?** \
+{text input for: 'p1_p2_code1'}
+
+[[You examine the card.->Player 2 meet Player 1]]
+
+:: Player 2 meet Player 1
+_: player1.deserialize(p1_p2_code1)
+--
+Raindrops splatter on the card as you scan it.
+
+[align center]
+~~Agent M. Walker~~
+[if player1.role.value == 'detective' || player1.role.value == 'desk jockey'; align center]
+~~Detective~~
+[if player1.role.value == 'tech'; align center]
+~~Forensics Technician~~
+[continue; align center]
+~~{p1_p2_code1}~~
+[continue]
+
+The card's owner doesn't look to happy to be here.
+Their {player1.eyes.value} eyes are unwavering.
+Their {player1.hair.value} hair is already sopping.
